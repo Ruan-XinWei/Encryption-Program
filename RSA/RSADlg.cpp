@@ -7,11 +7,13 @@
 #include "RSA.h"
 #include "RSADlg.h"
 #include "afxdialogex.h"
+#include "CDecryption.h"
+#include "CEncryption.h"
+#include "extern.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
 
 // 用于应用程序“关于”菜单项的 CAboutDlg 对话框
 
@@ -59,6 +61,7 @@ CRSADlg::CRSADlg(CWnd* pParent /*=nullptr*/)
 void CRSADlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
+	DDX_Control(pDX, IDC_TAB2, m_tab);
 }
 
 BEGIN_MESSAGE_MAP(CRSADlg, CDialogEx)
@@ -100,6 +103,23 @@ BOOL CRSADlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+
+	//添加标签页
+	m_tab.AddPage(TEXT("信息加密"), &cencryption, IDD_Encryption);
+	m_tab.AddPage(TEXT("信息解密"), &cdecryption, IDD_Decryption);
+	m_tab.AddPage(TEXT("公密钥对"), &caboutkey, IDD_ABOUTKEY);
+
+	//显示
+	m_tab.Show();
+
+	//私密钥对
+	caboutkey.n_about_public.SetWindowTextW(CString(g_public.c_str()));
+	caboutkey.n_about_private.SetWindowTextW(CString(g_private.c_str()));
+
+	//填充公秘钥
+	cencryption.n_publicKey.SetWindowTextW(CString(g_public.c_str()));
+	cdecryption.n_de_private.SetWindowTextW(CString(g_private.c_str()));
+
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE
 }

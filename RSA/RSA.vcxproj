@@ -183,14 +183,24 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CABOUTKEY.h" />
+    <ClInclude Include="CDecryption.h" />
+    <ClInclude Include="CEncryption.h" />
+    <ClInclude Include="extern.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="RSA.h" />
     <ClInclude Include="RSADlg.h" />
+    <ClInclude Include="RSA_Algorithm.h" />
+    <ClInclude Include="TabSheet.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CABOUTKEY.cpp" />
+    <ClCompile Include="CDecryption.cpp" />
+    <ClCompile Include="CEncryption.cpp" />
+    <ClCompile Include="extern.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -199,6 +209,8 @@
     </ClCompile>
     <ClCompile Include="RSA.cpp" />
     <ClCompile Include="RSADlg.cpp" />
+    <ClCompile Include="RSA_Algorithm.cpp" />
+    <ClCompile Include="TabSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="RSA.rc" />
