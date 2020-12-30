@@ -100,6 +100,8 @@ private:
 	* 参数：e（long long），n（long long）
 	* 返回：公钥字符串“+”进行分隔
 	*/
+	string intsStringtoString(string ints);
+	string stringtoIntsString(string str);
 	string twoLongtoString(long long e, long long n);
 	/*
 	* 功能：字符串解e（long long），n（long long）

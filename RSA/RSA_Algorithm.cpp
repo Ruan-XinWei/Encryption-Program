@@ -197,13 +197,14 @@ int RSA::modpow(long long a, long long b, long long c) {
 
 /*
 * 功能：加密
-* 参数：信息（string）,long long e, long long n
-* 返回：十进制加密报文
+* 参数：信息（string），公钥（string）
+* 返回：string
 */
 string RSA::encrypt(string m, string p) {
 	long long i = 0, j = 0;
-	stringTotwoLong(getPublic(), i, j);
-	return encrypt(m, i, j);
+	stringTotwoLong(p, i, j);
+	//return encrypt(m, i, j);	//返回十进制假字符串
+	return intsStringtoString(encrypt(m, i, j));	//返回加密字符串
 }
 
 /*
@@ -225,13 +226,14 @@ string RSA::encrypt(string m, long long e, long long n) {
 
 /*
 * 功能：解密
-* 参数：加密报文（string）
+* 参数：十进制加密报文（string）
 * 返回：信息（string）
 */
 string RSA::decrypt(string m) {
 	long long i = 0, j = 0;
 	stringTotwoLong(getPrivate(), i, j);
-	return decrypt(stringToInts(m), i, j);
+	string str = stringtoIntsString(m);
+	return decrypt(stringToInts(str), i, j);
 }
 
 /*
@@ -242,7 +244,9 @@ string RSA::decrypt(string m) {
 string RSA::decrypt(string m, string p) {
 	long long i = 0, j = 0;
 	stringTotwoLong(p, i, j);
-	return decrypt(stringToInts(m), i, j);
+	/*return decrypt(stringToInts(m), i, j);*/
+	string str = stringtoIntsString(m);
+	return decrypt(stringToInts(str), i, j);
 }
 
 /*
@@ -291,6 +295,50 @@ string RSA::getPublic() {
 */
 string RSA::getPrivate() {
 	return twoLongtoString(d, n);
+}
+
+/*
+* 功能：假十进制加密报文转换成加密报文（string）
+* 参数：假十进制加密报文（string）
+* 返回：加密报文（string）
+*/
+string RSA::intsStringtoString(string ints) {
+	string s = "";
+	for (int i = 0; i < ints.size(); ++i) {
+		if (ints[i] == '-') {
+			//58-62 : ; < = > (跳过=)
+			//      0 1 2   4
+			//	   58 59 60 62
+			int r = rand() % 4;
+			if (r > 2) {
+				r += 1;
+			}
+			s += char(58 + r);
+			//s += '/';
+		}
+		else {
+			s += intToChar(ints[i] - '0');
+		}
+	}
+	return s;
+}
+
+/*
+* 功能：加密报文（string）转换成假十进制加密报文
+* 参数：加密报文（string）
+* 返回：假十进制加密报文（string）
+*/
+string RSA::stringtoIntsString(string str){
+	string ints = "";
+	for (int i = 0; i < str.size(); ++i) {
+		if (str[i]==':'||str[i]==';' || str[i] == '<' || str[i] == '>') {
+			ints += '-';
+		}
+		else {
+			ints += charToInt(str[i]) + '0';
+		}
+	}
+	return ints;
 }
 
 /*
