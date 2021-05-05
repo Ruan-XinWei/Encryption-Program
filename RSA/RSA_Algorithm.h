@@ -141,7 +141,7 @@ private:
 	//long long p, q, phi;
 
 	static const long long MAXPRIME = 20000;
-	static const long long MINPRIME = 10240;
+	static const long long MINPRIME = 10000;
 	//static const long long MAXPRIME = 1024;
 	//static const long long MINPRIME = 100;
 };
